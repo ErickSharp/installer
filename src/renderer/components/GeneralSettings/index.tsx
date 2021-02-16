@@ -62,6 +62,7 @@ function index(): JSX.Element {
     const handleReset = async () => {
         settings.clear();
         setInstallPath(await configureInitialInstallPath());
+        settings.set('mainSettings.autoUpdateMods', false);
         setAutoInstall(false);
     };
 
