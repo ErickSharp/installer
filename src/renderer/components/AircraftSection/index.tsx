@@ -184,6 +184,10 @@ const index: React.FC<Props> = (props: Props) => {
             setNeedsUpdate(false);
             console.log('Not installed');
         }
+
+        if (needsUpdate && settings.get('mainSettings.autoUpdateMods') as boolean) {
+            handleUpdate();
+        }
     }
 
     function checkIfMSFS() {
