@@ -52,6 +52,7 @@ let signal: AbortSignal;
 const UpdateReasonMessages = {
     NEW_RELEASE_AVAILABLE: "New release available",
     VERSION_CHANGED: "New version selected",
+    FILE_INTEGRITY: "Files have been changed externally",
 };
 
 const index: React.FC<Props> = (props: Props) => {
@@ -154,13 +155,22 @@ const index: React.FC<Props> = (props: Props) => {
                         // There was an update before - check if that build is the latest
 
                         if (typeof localLastBuildDate === "string") {
-                            if ((localLastUpdate === webLastUpdate) && (localLastBuildDate === findBuildTime(installDir))) {
-                                setNeedsUpdate(false);
-                                console.log("Is Updated");
+                            if (localLastBuildDate === findBuildTime(installDir)) {
+                                if (localLastUpdate === webLastUpdate) {
+                                    setNeedsUpdate(false);
+                                    console.log("Is Updated");
+                                } else {
+                                    setNeedsUpdate(true);
+                                    setNeedsUpdateReason(UpdateReasonMessages.NEW_RELEASE_AVAILABLE);
+                                    console.log("Is not Updated");
+                                    if (settings.get('mainSettings.autoUpdateMods') as boolean) {
+                                        handleUpdate();
+                                    }
+                                }
                             } else {
                                 setNeedsUpdate(true);
-                                setNeedsUpdateReason(UpdateReasonMessages.NEW_RELEASE_AVAILABLE);
-                                console.log("Is not Updated");
+                                setNeedsUpdateReason(UpdateReasonMessages.FILE_INTEGRITY);
+                                console.log("Version has changed externally");
                             }
                         } else {
                             setNeedsUpdate(true);
@@ -183,10 +193,6 @@ const index: React.FC<Props> = (props: Props) => {
             setIsInstalled(false);
             setNeedsUpdate(false);
             console.log('Not installed');
-        }
-
-        if (needsUpdate && settings.get('mainSettings.autoUpdateMods') as boolean) {
-            handleUpdate();
         }
     }
 
