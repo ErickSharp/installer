@@ -61,6 +61,7 @@ type BaseModTrack = {
     name: string,
     key: string,
     url: string,
+    description: string,
     latestVersionName: Promise<ModVersion | string>
 }
 
@@ -138,6 +139,7 @@ function App() {
                             name: 'Stable',
                             key: 'a32nx-stable',
                             url: 'https://flybywiresim-packages.b-cdn.net/stable/A32NX-stable.zip',
+                            description: 'The stable version is the recommended version to install.',
                             isExperimental: false,
                             get latestVersionName() {
                                 return DataCache.from<string>('latest_version_stable', RELEASE_CACHE_LIMIT)
@@ -148,6 +150,7 @@ function App() {
                             name: 'Development',
                             key: 'a32nx-dev',
                             url: 'https://flybywiresim-packages.b-cdn.net/vmaster/A32NX-master.zip',
+                            description: 'Development is the fast-moving, frequently updating version. It updates whenever something is added to the \'master\' branch on Github.',
                             isExperimental: false,
                             get latestVersionName() {
                                 return DataCache.from<string>('latest_version_dev', RELEASE_CACHE_LIMIT)
@@ -158,6 +161,7 @@ function App() {
                             name: 'Custom FBW',
                             key: 'a32nx-fbw',
                             url: 'https://flybywiresim-packages.b-cdn.net/vmaster-cfbw/A32NX-master-cfbw.zip',
+                            description: 'This is exactly the same as Development but it has the Custom Fly-By-Wire system. This branch is updated whenever the \'fbw\' branch on Github is updated, which is around every 12 hours.',
                             isExperimental: true,
                             warningContent:
                                 <>
@@ -175,6 +179,7 @@ function App() {
                             name: 'Custom FBW+AP',
                             key: 'a32nx-ap',
                             url: 'https://flybywiresim-packages.b-cdn.net/vmaster-cfbw-cap/A32NX-master-cfbw-cap.zip',
+                            description: 'This is the exact same as Development but contains the Custom Fly-By-Wire and Custom Autopilot. This branch is updated whenever the \'autopilot\' branch on Github is updated, which is around every 12 hours.',
                             isExperimental: true,
                             warningContent:
                                 <>
