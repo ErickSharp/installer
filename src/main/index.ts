@@ -26,7 +26,7 @@ const createWindow = (): void => {
     mainWindow = new BrowserWindow({
         height: 1000,
         width: 1400,
-        minWidth: 1000,
+        minWidth: 1050,
         minHeight: 700,
         frame: false,
         icon: 'src/main/icons/icn.ico',
